@@ -7,7 +7,7 @@ import java.awt.Color;
 // API help : https://robocode.sourceforge.io/docs/robocode/robocode/Robot.html
 
 /**
- * Lolicon - a robot by (felipe, renê)
+ * SteelBallRun - a robot by (felipe, renê)
  */
 
 public class steelBallRun extends AdvancedRobot {
