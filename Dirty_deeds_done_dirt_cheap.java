@@ -12,26 +12,26 @@ import java.awt.*;
 
 
 public class Dirty_deeds_done_dirt_cheap extends AdvancedRobot {
-    int moveDirection=1;//which way to move
+    int direction = 1;//which way to move
     /**
      * run:  Tracker's main run function
      */
     public void run() {
         setAdjustRadarForRobotTurn(true);//keep the radar still while we turn
-        setBodyColor(new Color(128, 128, 50));
-        setGunColor(new Color(50, 50, 20));
-        setRadarColor(new Color(200, 200, 70));
+        setBodyColor(Color.pink);
+        setGunColor(Color.gray);
+        setRadarColor(Color.cyan);
         setScanColor(Color.white);
         setBulletColor(Color.blue);
         setAdjustGunForRobotTurn(true); // Keep the gun still when we turn
-        turnRadarRightRadians(Double.POSITIVE_INFINITY);//keep turning radar right
+        turnRadarRightRadians(999999999);//keep turning radar right
     }
 
     /**
      * onScannedRobot:  Here's the good stuff
      */
-    public void onScannedRobot(ScannedRobotEvent e) {
-        double absBearing=e.getBearingRadians()+getHeadingRadians();//enemies absolute bearing
+    public void onScannedRobot(ScannedRobotEvent enemy) {
+        double absBearing = e.getBearingRadians()+getHeadingRadians();//enemies absolute bearing
         double latVel=e.getVelocity() * Math.sin(e.getHeadingRadians() -absBearing);//enemies later velocity
         double gunTurnAmt;//amount to turn our gun
         setTurnRadarLeftRadians(getRadarTurnRemainingRadians());//lock on the radar
@@ -42,19 +42,19 @@ public class Dirty_deeds_done_dirt_cheap extends AdvancedRobot {
             gunTurnAmt = robocode.util.Utils.normalRelativeAngle(absBearing- getGunHeadingRadians()+latVel/22);//amount to turn our gun, lead just a little bit
             setTurnGunRightRadians(gunTurnAmt); //turn our gun
             setTurnRightRadians(robocode.util.Utils.normalRelativeAngle(absBearing-getHeadingRadians()+latVel/getVelocity()));//drive towards the enemies predicted future location
-            setAhead((e.getDistance() - 140)*moveDirection);//move forward
+            setAhead((e.getDistance() - 140)*direction);//move forward
             setFire(3);//fire
         }
         else{//if we are close enough...
             gunTurnAmt = robocode.util.Utils.normalRelativeAngle(absBearing- getGunHeadingRadians()+latVel/15);//amount to turn our gun, lead just a little bit
             setTurnGunRightRadians(gunTurnAmt);//turn our gun
             setTurnLeft(-90-e.getBearing()); //turn perpendicular to the enemy
-            setAhead((e.getDistance() - 140)*moveDirection);//move forward
+            setAhead((e.getDistance() - 140)*direction);//move forward
             setFire(3);//fire
         }
     }
     public void onHitWall(HitWallEvent e){
-        moveDirection=-moveDirection;//reverse direction upon hitting a wall
+        direction = -direction;//reverse direction upon hitting a wall
     }
     /**
      * onWin:  Do a victory dance
