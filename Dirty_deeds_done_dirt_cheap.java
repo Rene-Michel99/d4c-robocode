@@ -17,7 +17,10 @@ public class Dirty_deeds_done_dirt_cheap extends AdvancedRobot {
      * run:  Tracker's main run function
      */
     public void run() {
-        setAdjustRadarForRobotTurn(true);//keep the radar still while we turn
+        initialize();
+    }
+    public void initialize(){
+    	setAdjustRadarForRobotTurn(true);//keep the radar still while we turn
         setBodyColor(Color.pink);
         setGunColor(Color.gray);
         setRadarColor(Color.cyan);
@@ -43,7 +46,7 @@ public class Dirty_deeds_done_dirt_cheap extends AdvancedRobot {
             setTurnGunRightRadians(gunTurnAmt); //turn our gun
             setTurnRightRadians(robocode.util.Utils.normalRelativeAngle(absBearing-getHeadingRadians()+latVel/getVelocity()));//drive towards the enemies predicted future location
             setAhead((e.getDistance() - 140)*direction);//move forward
-            setFire(3);//fire
+            set(3);//fire
         }
         else{//if we are close enough...
             gunTurnAmt = robocode.util.Utils.normalRelativeAngle(absBearing- getGunHeadingRadians()+latVel/15);//amount to turn our gun, lead just a little bit
