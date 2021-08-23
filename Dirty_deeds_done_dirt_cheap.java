@@ -50,11 +50,8 @@ public class Lolicon extends Robot {
 	}
 	
 	public void onHitByBullet(HitByBulletEvent e) {
-		turnRight(90 - (getHeading() - e.getHeading()));
-		ahead(150);
-		turnLeft(55);
-		back(500);
-		ahead(500);
+		turnRight(gerador.nextInt(90));
+		ahead(gerador.nextInt(30));
 	}
 	/**
 	 * onHitWall: What to do when you hit a wall
